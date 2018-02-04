@@ -1,0 +1,19 @@
+# /* vim: set tabstop=2:softtabstop=2:shiftwidth=2 */ 
+---
+# This playbook deploys whole system configuration. Every configuration
+# is specific for certain hosts.
+
+# Base server setup. Applicable for all machines.
+- name: Base Server Configuration
+  hosts: all
+  become: true
+  vars:
+    numpy_version: "1.14.0"
+  roles:
+    - slothai.openblas
+    - slothai.numpy
+  tasks:
+    - name: Add wheel group
+      lineinfile: "dest=/etc/sudoers state=present regexp='^%wheel' line='%wheel ALL=(ALL) NOPASSWD: ALL'"
+    - name: Add en_US.UTF-8 locale
+      locale_gen: "state=present name=en_US.UTF-8"

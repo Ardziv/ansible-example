@@ -1,0 +1,4 @@
+.vagrant/
+.env/
+provisioning/roles/
+*.log
